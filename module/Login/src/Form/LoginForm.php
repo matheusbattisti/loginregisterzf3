@@ -11,10 +11,10 @@
 		{
 			parent::__construct('login');
 
-			// $this->add([
-			// 	'name' => 'id',
-			// 	'type' => 'hidden',
-			// ]);
+			$this->add([
+			 	'name' => 'id',
+			 	'type' => 'hidden',
+			 ]);
 
 			$this->add([
 				'name' => 'username',

@@ -39,17 +39,13 @@
 
 			$login = new Login();
 
-	        //$form->setInputFilter($login->getInputFilter());
+	        $form->setInputFilter($login->getInputFilter());
 	        $form->setData($request->getPost());
 	        
 
 	        if (!$form->isValid()) {
 	            return ['form' => $form];
 	        }
-
-	        print_r($login);
-	        print_r($form->getData());
-	        print_r('asda' . $login->exchangeArray($form->getData()));
 
 	        $login->exchangeArray($form->getData());
 	        $this->table->authenticate($login);
