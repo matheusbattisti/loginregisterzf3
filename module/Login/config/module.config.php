@@ -7,15 +7,15 @@
 
 	return [
 
-		'controllers' => [
-			'factories' => [
-				Controller\LoginController::class => function($container) {
-					return new Controller\LoginController(
-						$container->get(\Zend\Db\Adapter\Adapter::class)
-					);
-				}
-			],
-		],
+		// 'controllers' => [
+		// 	'factories' => [
+		// 		Controller\LoginController::class => function($container) {
+		// 			return new Controller\LoginController(
+		// 				$container->get(\Zend\Db\Adapter\Adapter::class)
+		// 			);
+		// 		}
+		// 	],
+		// ],
 
 		'router' => [
 	        'routes' => [

@@ -14,7 +14,7 @@
 return [
     'db' =>  [
     	'driver' => 'Pdo',
-    	'dsn' 	 => 'mysql:dbname=pdo;host=localhost;charset=utf8',
+    	'dsn' 	 => 'mysql:dbname=zf3login;host=localhost;charset=utf8',
     	'username' => 'matheus',
     	'password' => ''
     ],

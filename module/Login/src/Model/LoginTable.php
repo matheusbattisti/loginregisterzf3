@@ -17,7 +17,7 @@
 
 		public function authenticate()
 		{
-
+			echo 'opa';
 		}
 
 	}
