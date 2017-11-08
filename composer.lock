@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9d85206892f8328f621eb0f807175d79",
-    "content-hash": "7416b3013f769a912f5c3850e4581629",
+    "hash": "b1d8e88e3cd13c8abc40951a2597cc32",
+    "content-hash": "29783e75fedc6fa62cb729fdcb6d1dfa",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -86,6 +86,68 @@
                 "psr"
             ],
             "time": "2017-02-14 16:28:37"
+        },
+        {
+            "name": "zendframework/zend-authentication",
+            "version": "2.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-authentication.git",
+                "reference": "1422dec160eb769c719cad2229847fcbf20a1405"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-authentication/zipball/1422dec160eb769c719cad2229847fcbf20a1405",
+                "reference": "1422dec160eb769c719cad2229847fcbf20a1405",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0",
+                "zendframework/zend-crypt": "^2.6",
+                "zendframework/zend-db": "^2.7",
+                "zendframework/zend-http": "^2.5.4",
+                "zendframework/zend-ldap": "^2.6",
+                "zendframework/zend-session": "^2.6.2",
+                "zendframework/zend-uri": "^2.5",
+                "zendframework/zend-validator": "^2.6"
+            },
+            "suggest": {
+                "zendframework/zend-crypt": "Zend\\Crypt component",
+                "zendframework/zend-db": "Zend\\Db component",
+                "zendframework/zend-http": "Zend\\Http component",
+                "zendframework/zend-ldap": "Zend\\Ldap component",
+                "zendframework/zend-session": "Zend\\Session component",
+                "zendframework/zend-uri": "Zend\\Uri component",
+                "zendframework/zend-validator": "Zend\\Validator component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev",
+                    "dev-develop": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Authentication\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides an API for authentication and includes concrete authentication adapters for common use case scenarios",
+            "homepage": "https://github.com/zendframework/zend-authentication",
+            "keywords": [
+                "Authentication",
+                "zf2"
+            ],
+            "time": "2016-02-28 15:02:34"
         },
         {
             "name": "zendframework/zend-code",
@@ -1404,13 +1466,12 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "zendframework/zend-component-installer": 20,
-        "zendframework/zend-skeleton-installer": 20
+        "zendframework/zend-component-installer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": {}
+        "php": "^5.6 || ^7.0"
     },
     "platform-dev": []
 }
