@@ -3,7 +3,6 @@
 	namespace Login;
 
 	use Zend\Router\Http\Segment;
-	use Zend\ServiceManager\Factory\InvokableFactory;
 
 	return [
 

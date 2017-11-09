@@ -11,16 +11,17 @@
 	use Zend\InputFilter\InputFilterInterface;
 	use Zend\Validator\StringLength;
 
-	class Login
+	class Login implements InputFilterAwareInterface
 	{
 
 		public $id;
 		public $username;
 		public $password;
 
+		private $inputFilter;
+
 		public function exchangeArray(array $data)
 		{
-			print_r($data);
 			$this->id = !empty($data['id']) ? $data['id'] : null;
 			$this->username = !empty($data['username']) ? $data['username'] : null;
 			$this->password = !empty($data['password']) ? $data['password'] : null;

@@ -16,7 +16,7 @@
 		private $db;
 		private $table;
 
-	    public function __construct($db)
+	    public function __construct(LoginTable $table)
 	    {
 	        $this->db = $db;
 	        $this->table = $table;
