@@ -5,6 +5,7 @@
 	use Zend\Db\Adapter\AdapterInterface;
 	use Zend\Db\ResultSet\ResultSet;
 	use Zend\Db\TableGateway\TableGateway;
+	use Zend\Db\Adapter\Adapter;
 	use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 	class Module implements ConfigProviderInterface
@@ -21,7 +22,8 @@
 	            'factories' => [
 	                Model\LoginTable::class => function($container) {
 	                    $tableGateway = $container->get(Model\LoginTableGateway::class);
-	                    return new Model\LoginTable($tableGateway);
+	                    return new Model\LoginTable($container->get(AdapterInterface::class));
+	                    //return new Model\LoginTable($tableGateway);
 	                },
 	                Model\LoginTableGateway::class => function ($container) {
 	                    $dbAdapter = $container->get(AdapterInterface::class);
