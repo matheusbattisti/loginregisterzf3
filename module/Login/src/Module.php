@@ -20,16 +20,8 @@
 	    {
 	        return [
 	            'factories' => [
-	                Model\LoginTable::class => function($container) {
-	                    $tableGateway = $container->get(Model\LoginTableGateway::class);
-	                    return new Model\LoginTable($container->get(AdapterInterface::class));
-	                    //return new Model\LoginTable($tableGateway);
-	                },
-	                Model\LoginTableGateway::class => function ($container) {
-	                    $dbAdapter = $container->get(AdapterInterface::class);
-	                    $resultSetPrototype = new ResultSet();
-	                    $resultSetPrototype->setArrayObjectPrototype(new Model\Login());
-	                    return new TableGateway('login', $dbAdapter, null, $resultSetPrototype);
+	                Model\Authenticator::class => function($container) {
+	                	return new Model\Authenticator($container->get(AdapterInterface::class));
 	                },
 	            ],
 	        ];
@@ -41,7 +33,7 @@
 	            'factories' => [
 	                Controller\LoginController::class => function($container) {
 	                    return new Controller\LoginController(
-	                        $container->get(Model\LoginTable::class)
+	                        $container->get(Model\Authenticator::class)
 	                    );
 	                },
 	            ],
