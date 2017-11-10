@@ -13,12 +13,10 @@
 	class LoginController extends AbstractActionController
 	{
 
-		private $db;
 		private $table;
 
 	    public function __construct(Authenticator $table)
 	    {
-	        $this->db = $db;
 	        $this->table = $table;
 	    }
 
