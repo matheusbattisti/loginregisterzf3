@@ -1,6 +1,6 @@
 <?php 
 
-	namespace Login;
+	namespace User;
 
 	use Zend\Db\Adapter\AdapterInterface;
 	use Zend\Db\ResultSet\ResultSet;
@@ -31,8 +31,8 @@
 	    {
 	        return [
 	            'factories' => [
-	                Controller\LoginController::class => function($container) {
-	                    return new Controller\LoginController(
+	                Controller\UserController::class => function($container) {
+	                    return new Controller\UserController(
 	                        $container->get(Model\Authenticator::class)
 	                    );
 	                },

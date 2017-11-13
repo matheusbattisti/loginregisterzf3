@@ -1,6 +1,6 @@
 <?php 
 
-	namespace Login\Model;
+	namespace User\Model;
 
 	use RuntimeException;
 	use Zend\Db\Adapter\AdapterInterface;
