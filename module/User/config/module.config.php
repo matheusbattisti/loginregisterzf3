@@ -33,6 +33,16 @@
 			                    ],
 			                ],
 			            ],
+			            'account' => [
+			                'type'    => Segment::class,
+			                'options' => [
+			                    'route' => '/account',
+			                    'defaults' => [
+			                    	'controller' => Controller\UserController::class,
+			                        'action'     => 'account',
+			                    ],
+			                ],
+			            ],
 		            ],
 	            ],
 	        ],

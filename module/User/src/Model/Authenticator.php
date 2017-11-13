@@ -53,7 +53,7 @@
 			    // $result->getIdentity() === $username
 			    print_r($auth->getIdentity());
 			    print_r($result->getIdentity());
-			    print_r($result); exit;
+			    //print_r($result); exit;
 			}
 		}
 
