@@ -1,6 +1,6 @@
 <?php 
 
-	namespace Login\Model;
+	namespace User\Model;
 
 	use DomainException;
 	use Zend\Filter\StringTrim;

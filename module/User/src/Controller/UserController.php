@@ -23,7 +23,18 @@
 
 	    public function indexAction() 
 	    {
-	    	print_r('logado'); exit;
+
+			$auth = new AuthenticationService();
+
+	    	if(!$auth->getIdentity()) {
+
+	    		return $this->redirect()->toRoute('user/login');
+
+	    	} else {
+
+	    		return $this->redirect()->toRoute('account');
+
+	    	}
 	    }
 
 
@@ -32,7 +43,7 @@
 
 			$auth = new AuthenticationService();
  
-			if($auth->getIdentity()) {
+			if(!$auth->getIdentity()) {
 
 				$form = new LoginForm();
 				$form->get('submit')->setValue('Sign In');
@@ -59,7 +70,7 @@
 
 	    	} else {
 
-	    		return $this->redirect()->toRoute('user');
+	    		return $this->redirect()->toRoute('account');
 
 	    	}
 		}

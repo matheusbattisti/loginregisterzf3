@@ -11,7 +11,7 @@
 	            'user' => [
 	                'type'    => Segment::class,
 	                'options' => [
-	                    'route' => '/user[/:action]',
+	                    'route' => '/user',
 	                    'constraints' => [
 	                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 	                        'id'     => '[0-9]+',
