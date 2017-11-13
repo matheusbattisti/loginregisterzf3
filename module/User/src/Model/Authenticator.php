@@ -38,7 +38,7 @@
 	        	->setIdentity($data['username'])
 	        	->setCredential($data['password']);
 
-	        $result = $authAdapter->authenticate();
+	        $result = $authAdapter->authenticate($authAdapter);
 
 	        if (! $result->isValid()) {
 	        	print_r($result); exit;
@@ -49,8 +49,8 @@
 			} else {
 			    // Authentication succeeded; the identity ($username) is stored
 			    // in the session:
-			    // $result->getIdentity() === $auth->getIdentity()
-			    // $result->getIdentity() === $username
+			    $result->getIdentity() === $auth->getIdentity();
+			    $result->getIdentity() === $login->username;
 			    print_r($auth->getIdentity());
 			    print_r($result->getIdentity());
 			    //print_r($result); exit;

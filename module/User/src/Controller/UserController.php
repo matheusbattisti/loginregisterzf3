@@ -8,6 +8,7 @@
 	use Zend\Mvc\Controller\AbstractActionController;
 	use Zend\View\Model\ViewModel;
 	use Zend\Authentication\AuthenticationService;
+	use Zend\Authentication\Storage\Session as SessionStorage;
 
 	use Zend\Db\Adapter\Adapter;
 
@@ -26,13 +27,13 @@
 
 			$auth = new AuthenticationService();
 
-	    	if(!$auth->getIdentity()) {
+	    	if(!$auth->getStorage()) {
 
 	    		return $this->redirect()->toRoute('user/login');
 
 	    	} else {
 
-	    		return $this->redirect()->toRoute('account');
+	    		return $this->redirect()->toRoute('user/account');
 
 	    	}
 	    }
@@ -43,7 +44,7 @@
 
 			$auth = new AuthenticationService();
  
-			if(!$auth->getIdentity()) {
+			if(!$auth->hasIdentity()) {
 
 				$form = new LoginForm();
 				$form->get('submit')->setValue('Sign In');
@@ -66,13 +67,40 @@
 
 		        $login->exchangeArray($form->getData());
 		        $this->table->authenticate($login);
-		        return $this->redirect()->toRoute('login');
+
+		        $auth->setStorage(new SessionStorage('abc'));
+
+		        return $this->redirect()->toRoute('user/account');
 
 	    	} else {
 
-	    		return $this->redirect()->toRoute('account');
+	    		return $this->redirect()->toRoute('user/account');
 
 	    	}
+		}
+
+		public function logoutAction()
+		{
+
+			$auth = new AuthenticationService();
+			$auth->clearIdentity();
+			return $this->redirect()->toRoute('user/login');
+
+		}
+
+		public function accountAction()
+		{
+
+			$auth = new AuthenticationService();
+
+			print_r($auth->getStorage('abc'));
+			print_r($auth->hasIdentity());
+
+			if(!$auth->getStorage()) {
+				return $this->redirect()->toRoute('user/login');
+			} else {
+				return new ViewModel();
+			}
 		}
 
 	}

@@ -43,6 +43,16 @@
 			                    ],
 			                ],
 			            ],
+			            'logout' => [
+			                'type'    => Segment::class,
+			                'options' => [
+			                    'route' => '/logout',
+			                    'defaults' => [
+			                    	'controller' => Controller\UserController::class,
+			                        'action'     => 'logout',
+			                    ],
+			                ],
+			            ],
 		            ],
 	            ],
 	        ],
