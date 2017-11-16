@@ -8,9 +8,7 @@
 	use Zend\Mvc\Controller\AbstractActionController;
 	use Zend\View\Model\ViewModel;
 	use Zend\Authentication\AuthenticationService;
-	use Zend\Authentication\Storage\Session as SessionStorage;
-
-	use Zend\Db\Adapter\Adapter;
+	use Zend\Session\SessionManager;
 
 	class UserController extends AbstractActionController
 	{
@@ -27,14 +25,10 @@
 
 			$auth = new AuthenticationService();
 
-	    	if(!$auth->getStorage()) {
-
+	    	if(!$auth->hasIdentity()) {
 	    		return $this->redirect()->toRoute('user/login');
-
 	    	} else {
-
 	    		return $this->redirect()->toRoute('user/account');
-
 	    	}
 	    }
 
@@ -43,7 +37,7 @@
 		{
 
 			$auth = new AuthenticationService();
- 
+
 			if(!$auth->hasIdentity()) {
 
 				$form = new LoginForm();
@@ -66,9 +60,8 @@
 		        }
 
 		        $login->exchangeArray($form->getData());
+		        
 		        $this->table->authenticate($login);
-
-		        $auth->setStorage(new SessionStorage('abc'));
 
 		        return $this->redirect()->toRoute('user/account');
 
@@ -83,7 +76,8 @@
 		{
 
 			$auth = new AuthenticationService();
-			$auth->clearIdentity();
+			$sm = new SessionManager();
+			$auth->clearIdentity('Zend_Auth');
 			return $this->redirect()->toRoute('user/login');
 
 		}
@@ -93,10 +87,7 @@
 
 			$auth = new AuthenticationService();
 
-			print_r($auth->getStorage('abc'));
-			print_r($auth->hasIdentity());
-
-			if(!$auth->getStorage()) {
+			if(!$auth->hasIdentity()) {
 				return $this->redirect()->toRoute('user/login');
 			} else {
 				return new ViewModel();

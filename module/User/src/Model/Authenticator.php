@@ -6,6 +6,8 @@
 	use Zend\Db\Adapter\AdapterInterface;
 	use Zend\Authentication\AuthenticationService;
 	use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthAdapter;
+	use Zend\Authentication\Storage\Session as SessionStorage;
+	use Zend\Session\SessionManager;
 
 	class Authenticator
 	{
@@ -22,6 +24,8 @@
 
 			$auth = new AuthenticationService();
 
+			$sessionManager = new SessionManager();
+
 			$authAdapter = new AuthAdapter(
 				$this->dbAdapter, 
 				'users', 
@@ -34,27 +38,35 @@
 	            'password'  => $login->password,
 	        ];
 
+	        $auth->setStorage(new SessionStorage());
+
 	        $authAdapter
-	        	->setIdentity($data['username'])
+	         	->setIdentity($data['username'])
 	        	->setCredential($data['password']);
 
-	        $result = $authAdapter->authenticate($authAdapter);
+	        $result = $auth->authenticate($authAdapter);
 
 	        if (! $result->isValid()) {
-	        	print_r($result); exit;
 			    // Authentication failed; print the reasons why:
-			    foreach ($result->getMessages() as $message) {
-			        echo "$message\n";
-			    }
 			} else {
 			    // Authentication succeeded; the identity ($username) is stored
 			    // in the session:
-			    $result->getIdentity() === $auth->getIdentity();
-			    $result->getIdentity() === $login->username;
-			    print_r($auth->getIdentity());
-			    print_r($result->getIdentity());
-			    //print_r($result); exit;
+			    // $result->getIdentity() === $auth->getIdentity();
+			    // $result->getIdentity() === $login->username;
 			}
 		}
+
+		public function checkUser()
+		{
+			$authAdapter = new AuthAdapter(
+				$this->dbAdapter, 
+				'users', 
+				'username', 
+				'password'
+			);
+
+			return $authAdapter->getIdentity();
+		}
+
 
 	}
