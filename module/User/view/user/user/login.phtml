@@ -1,8 +1,12 @@
 <?php
 $title = 'Login';
 $this->headTitle($title);
+$flash = $this->flashMessenger();
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
+
+<?php echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info')); ?>
+
 <?php
 
 $username = $form->get('username');

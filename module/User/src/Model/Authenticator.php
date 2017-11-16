@@ -48,6 +48,9 @@
 
 	        if (! $result->isValid()) {
 			    // Authentication failed; print the reasons why:
+			    $messages = $result->getMessages();
+			    return $messages;
+
 			} else {
 			    // Authentication succeeded; the identity ($username) is stored
 			    // in the session:
@@ -55,18 +58,5 @@
 			    // $result->getIdentity() === $login->username;
 			}
 		}
-
-		public function checkUser()
-		{
-			$authAdapter = new AuthAdapter(
-				$this->dbAdapter, 
-				'users', 
-				'username', 
-				'password'
-			);
-
-			return $authAdapter->getIdentity();
-		}
-
 
 	}

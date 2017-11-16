@@ -9,6 +9,7 @@
 	use Zend\View\Model\ViewModel;
 	use Zend\Authentication\AuthenticationService;
 	use Zend\Session\SessionManager;
+	use Zend\View\Helper\FlashMessenger;
 
 	class UserController extends AbstractActionController
 	{
@@ -88,6 +89,7 @@
 			$auth = new AuthenticationService();
 
 			if(!$auth->hasIdentity()) {
+				$this->flashMessenger()->addInfoMessage('You are not logged in.');
 				return $this->redirect()->toRoute('user/login');
 			} else {
 				return new ViewModel();
