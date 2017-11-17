@@ -4,7 +4,9 @@
 
 	use User\Model\Authenticator;
 	use User\Form\LoginForm;
+	use User\Form\RegisterForm;
 	use User\Model\Login;
+	use User\Model\Register;
 	use Zend\Mvc\Controller\AbstractActionController;
 	use Zend\View\Model\ViewModel;
 	use Zend\Authentication\AuthenticationService;
@@ -19,14 +21,12 @@
 	    public function __construct(Authenticator $table)
 	    {
 	        $this->table = $table;
+	        $this->auth = new AuthenticationService();
 	    }
 
 	    public function indexAction() 
 	    {
-
-			$auth = new AuthenticationService();
-
-	    	if(!$auth->hasIdentity()) {
+	    	if(!$this->auth->hasIdentity()) {
 	    		return $this->redirect()->toRoute('user/login');
 	    	} else {
 	    		return $this->redirect()->toRoute('user/account');
@@ -37,9 +37,7 @@
 		public function loginAction()
 		{
 
-			$auth = new AuthenticationService();
-
-			if(!$auth->hasIdentity()) {
+			if(!$this->auth->hasIdentity()) {
 
 				$form = new LoginForm();
 				$form->get('submit')->setValue('Sign In');
@@ -74,10 +72,17 @@
 		public function registerAction()
 		{
 
-			$auth = new AuthenticationService();
+			if(!$this->auth->hasIdentity()) {
 
-			if(!$auth->hasIdentity()) {
-				return new ViewModel();
+				$form = new RegisterForm();
+				$form->get('submit')->setValue('Sign Up');
+
+				$request = $this->getRequest();
+
+		        if (!$request->isPost()) {
+		            return ['form' => $form];
+		        }
+
 			} else {
 				return $this->redirect()->toRoute('user/account');
 			}
@@ -87,9 +92,8 @@
 		public function logoutAction()
 		{
 
-			$auth = new AuthenticationService();
 			$sm = new SessionManager();
-			$auth->clearIdentity('Zend_Auth');
+			$this->auth->clearIdentity('Zend_Auth');
 			$this->flashMessenger()->addInfoMessage('Successful logout.');
 			return $this->redirect()->toRoute('user/login');
 
@@ -98,12 +102,11 @@
 		public function accountAction()
 		{
 
-			$auth = new AuthenticationService();
-
-			if(!$auth->hasIdentity()) {
+			if(!$this->auth->hasIdentity()) {
 				$this->flashMessenger()->addInfoMessage('You are not logged in.');
 				return $this->redirect()->toRoute('user/login');
 			} else {
+				$this->layout()->authOk = true;
 				return new ViewModel();
 			}
 		}

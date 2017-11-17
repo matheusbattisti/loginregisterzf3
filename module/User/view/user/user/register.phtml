@@ -1,1 +1,56 @@
-<h1>Register Page</h1>
+<?php
+	$title = 'Register';
+	$this->headTitle($title);
+	$flash = $this->flashMessenger();
+	?>
+	<h1><?= $this->escapeHtml($title) ?></h1>
+
+	<?php echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info')); ?>
+
+	<?php
+
+	$name = $form->get('name');
+	$name->setAttribute('class', 'form-control');
+	$name->setAttribute('placeholder', 'Name');
+
+	$email = $form->get('email');
+	$email->setAttribute('class', 'form-control');
+	$email->setAttribute('placeholder', 'E-mail');
+
+	$password = $form->get('password');
+	$password->setAttribute('class', 'form-control');
+	$password->setAttribute('placeholder', 'Password');
+
+	// This provides CSS classes for the submit button:
+	$submit = $form->get('submit');
+	$submit->setAttribute('class', 'btn btn-primary');
+
+	$form->setAttribute('action', $this->url('user/login', ['action' => 'index']));
+	$form->prepare();
+
+	echo $this->form()->openTag($form);
+	
+	?>
+
+	<div class="form-group">
+	    <?= $this->formLabel($name) ?>
+	    <?= $this->formElement($name) ?>
+	    <?= $this->formElementErrors()->render($name, ['class' => 'help-block']) ?>
+	</div>
+
+	<div class="form-group">
+	    <?= $this->formLabel($email) ?>
+	    <?= $this->formElement($email) ?>
+	    <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+	</div>
+
+	<div class="form-group">
+	    <?= $this->formLabel($password) ?>
+	    <?= $this->formElement($password) ?>
+	    <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+	</div>
+
+	<?php
+	echo $this->formSubmit($submit);
+	echo $this->formHidden($form->get('id'));
+	echo $this->form()->closeTag();

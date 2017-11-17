@@ -9,11 +9,21 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Authentication\AuthenticationService;
 
 class IndexController extends AbstractActionController
 {
+
+	public function __construct()
+    {
+        $this->auth = new AuthenticationService();
+    }
+
     public function indexAction()
     {
+    	if($this->auth->hasIdentity()) {
+    		$this->layout()->authOk = true;
+    	}
         return new ViewModel();
     }
 }

@@ -38,9 +38,17 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+
+                        <?php if($this->authOk == false): ?>
                         <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
                         <li><a href="<?= $this->url('user/login') ?>">Login</a></li>
                         <li><a href="<?= $this->url('user/register') ?>">Register</a></li>
+                        <?php else: ?>
+                        <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
+                        <li><a href="<?= $this->url('user/account') ?>">Account</a></li>
+                        <li><a href="<?= $this->url('user/logout') ?>">Logout</a></li>
+                        <?php endif; ?>
+
                     </ul>
                 </div>
             </div>
