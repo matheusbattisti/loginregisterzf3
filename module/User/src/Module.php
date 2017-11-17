@@ -23,6 +23,16 @@
 	                Model\Authenticator::class => function($container) {
 	                	return new Model\Authenticator($container->get(AdapterInterface::class));
 	                },
+	                Model\RegisterTable::class => function($container) {
+	                    $tableGateway = $container->get(Model\RegisterTableGateway::class);
+	                    return new Model\RegisterTable($tableGateway);
+	                },
+	                Model\RegisterTableGateway::class => function ($container) {
+	                    $dbAdapter = $container->get(AdapterInterface::class);
+	                    $resultSetPrototype = new ResultSet();
+	                    $resultSetPrototype->setArrayObjectPrototype(new Model\Register());
+	                    return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
+	                },
 	            ],
 	        ];
 	    }
@@ -33,7 +43,8 @@
 	            'factories' => [
 	                Controller\UserController::class => function($container) {
 	                    return new Controller\UserController(
-	                        $container->get(Model\Authenticator::class)
+	                        $container->get(Model\Authenticator::class),
+	                        $container->get(Model\RegisterTable::class)
 	                    );
 	                },
 	            ],

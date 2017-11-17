@@ -25,11 +25,11 @@
 	$submit = $form->get('submit');
 	$submit->setAttribute('class', 'btn btn-primary');
 
-	$form->setAttribute('action', $this->url('user/login', ['action' => 'index']));
+	$form->setAttribute('action', $this->url('user/register', ['action' => 'index']));
 	$form->prepare();
 
 	echo $this->form()->openTag($form);
-	
+
 	?>
 
 	<div class="form-group">

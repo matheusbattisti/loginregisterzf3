@@ -7,6 +7,7 @@
 	use User\Form\RegisterForm;
 	use User\Model\Login;
 	use User\Model\Register;
+	use User\Model\RegisterTable;
 	use Zend\Mvc\Controller\AbstractActionController;
 	use Zend\View\Model\ViewModel;
 	use Zend\Authentication\AuthenticationService;
@@ -16,10 +17,12 @@
 	class UserController extends AbstractActionController
 	{
 
+		private $authenticator;
 		private $table;
 
-	    public function __construct(Authenticator $table)
+	    public function __construct(Authenticator $authenticator, RegisterTable $table)
 	    {
+	        $this->authenticator = $authenticator;
 	        $this->table = $table;
 	        $this->auth = new AuthenticationService();
 	    }
@@ -59,7 +62,7 @@
 
 		        $login->exchangeArray($form->getData());
 		        
-		        $this->table->authenticate($login);
+		        $this->authenticator->authenticate($login);
 
 		        $this->flashMessenger()->addInfoMessage('Wrong e-mail or passowrd.');
 		        return $this->redirect()->toRoute('user/login');
@@ -82,6 +85,22 @@
 		        if (!$request->isPost()) {
 		            return ['form' => $form];
 		        }
+
+		        $registerData = new Register();
+
+		        $form->setInputFilter($registerData->getInputFilter());
+		        $form->setData($request->getPost());   
+
+		        if (!$form->isValid()) {
+		            return ['form' => $form];
+		        }
+
+		        $registerData->exchangeArray($form->getData());
+		        
+		        $this->table->saveUser($registerData);
+
+		        $this->flashMessenger()->addInfoMessage('Congratulations! you are registered.');
+		        return $this->redirect()->toRoute('user/login');
 
 			} else {
 				return $this->redirect()->toRoute('user/account');
@@ -106,7 +125,7 @@
 				$this->flashMessenger()->addInfoMessage('You are not logged in.');
 				return $this->redirect()->toRoute('user/login');
 			} else {
-				$this->layout()->authOk = true;
+				$this->layout()->authCheck = true;
 				return new ViewModel();
 			}
 		}

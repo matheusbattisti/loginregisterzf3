@@ -22,7 +22,7 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	if($this->auth->hasIdentity()) {
-    		$this->layout()->authOk = true;
+    		$this->layout()->authCheck = true;
     	}
         return new ViewModel();
     }
