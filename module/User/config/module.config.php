@@ -53,6 +53,16 @@
 			                    ],
 			                ],
 			            ],
+			            'register' => [
+			                'type'    => Segment::class,
+			                'options' => [
+			                    'route' => '/register',
+			                    'defaults' => [
+			                    	'controller' => Controller\UserController::class,
+			                        'action'     => 'register',
+			                    ],
+			                ],
+			            ],
 		            ],
 	            ],
 	        ],

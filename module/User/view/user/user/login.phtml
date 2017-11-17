@@ -9,9 +9,9 @@ $flash = $this->flashMessenger();
 
 <?php
 
-$username = $form->get('username');
-$username->setAttribute('class', 'form-control');
-$username->setAttribute('placeholder', 'User name');
+$email = $form->get('email');
+$email->setAttribute('class', 'form-control');
+$email->setAttribute('placeholder', 'E-mail');
 
 $password = $form->get('password');
 $password->setAttribute('class', 'form-control');
@@ -28,9 +28,9 @@ echo $this->form()->openTag($form);
 ?>
 
 <div class="form-group">
-    <?= $this->formLabel($username) ?>
-    <?= $this->formElement($username) ?>
-    <?= $this->formElementErrors()->render($username, ['class' => 'help-block']) ?>
+    <?= $this->formLabel($email) ?>
+    <?= $this->formElement($email) ?>
+    <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
 </div>
 
 <div class="form-group">

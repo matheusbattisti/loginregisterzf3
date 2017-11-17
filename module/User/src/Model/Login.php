@@ -15,7 +15,7 @@
 	{
 
 		public $id;
-		public $username;
+		public $email;
 		public $password;
 
 		private $inputFilter;
@@ -23,7 +23,7 @@
 		public function exchangeArray(array $data)
 		{
 			$this->id = !empty($data['id']) ? $data['id'] : null;
-			$this->username = !empty($data['username']) ? $data['username'] : null;
+			$this->email = !empty($data['email']) ? $data['email'] : null;
 			$this->password = !empty($data['password']) ? $data['password'] : null;
 		}
 
@@ -52,7 +52,7 @@
 	        ]);
 
 	        $inputFilter->add([
-	            'name' => 'username',
+	            'name' => 'email',
 	            'required' => true,
 	            'filters' => [
 	                ['name' => StripTags::class],

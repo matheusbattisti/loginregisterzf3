@@ -34,14 +34,14 @@
 			);
 
 			$data = [
-	            'username' => $login->username,
+	            'email' => $login->email,
 	            'password'  => $login->password,
 	        ];
 
 	        $auth->setStorage(new SessionStorage());
 
 	        $authAdapter
-	         	->setIdentity($data['username'])
+	         	->setIdentity($data['email'])
 	        	->setCredential($data['password']);
 
 	        $result = $auth->authenticate($authAdapter);

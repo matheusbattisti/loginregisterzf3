@@ -53,8 +53,7 @@
 				$login = new Login();
 
 		        $form->setInputFilter($login->getInputFilter());
-		        $form->setData($request->getPost());
-		        
+		        $form->setData($request->getPost());    
 
 		        if (!$form->isValid()) {
 		            return ['form' => $form];
@@ -64,13 +63,25 @@
 		        
 		        $this->table->authenticate($login);
 
-		        return $this->redirect()->toRoute('user/account');
+		        $this->flashMessenger()->addInfoMessage('Wrong e-mail or passowrd.');
+		        return $this->redirect()->toRoute('user/login');
 
 	    	} else {
-
 	    		return $this->redirect()->toRoute('user/account');
-
 	    	}
+		}
+
+		public function registerAction()
+		{
+
+			$auth = new AuthenticationService();
+
+			if(!$auth->hasIdentity()) {
+				return new ViewModel();
+			} else {
+				return $this->redirect()->toRoute('user/account');
+			}
+
 		}
 
 		public function logoutAction()
@@ -79,6 +90,7 @@
 			$auth = new AuthenticationService();
 			$sm = new SessionManager();
 			$auth->clearIdentity('Zend_Auth');
+			$this->flashMessenger()->addInfoMessage('Successful logout.');
 			return $this->redirect()->toRoute('user/login');
 
 		}

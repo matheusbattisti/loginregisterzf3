@@ -17,10 +17,10 @@
 			 ]);
 
 			$this->add([
-				'name' => 'username',
-				'type' => 'text',
+				'name' => 'email',
+				'type' => 'email',
 				'options' => [
-					'label' => 'User Name',
+					'label' => 'E-mail',
 				],
 			]);
 
