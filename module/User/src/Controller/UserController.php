@@ -97,10 +97,16 @@
 
 		        $registerData->exchangeArray($form->getData());
 		        
-		        $this->table->saveUser($registerData);
-
-		        $this->flashMessenger()->addInfoMessage('Congratulations! you are registered.');
-		        return $this->redirect()->toRoute('user/login');
+		        $saveUser = $this->table->saveUser($registerData);
+		        
+		        if($saveUser['error'] == '') {
+		        	$this->flashMessenger()->addInfoMessage('Congratulations! you are registered.');
+		        	return $this->redirect()->toRoute('user/login');
+		        } else {
+		        	$this->flashMessenger()->addInfoMessage($saveUser['error']);
+		        	return $this->redirect()->toRoute('user/register');
+		        }
+		        
 
 			} else {
 				return $this->redirect()->toRoute('user/account');

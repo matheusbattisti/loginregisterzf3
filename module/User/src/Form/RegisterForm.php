@@ -41,6 +41,14 @@
 			]);
 
 			$this->add([
+				'name' => 'confirmpassword',
+				'type' => 'password',
+				'options' => [
+					'label' => 'Confirm Password',
+				],
+			]);
+
+			$this->add([
 				'name' => 'submit',
 				'type' => 'submit',
 				'attributes' => [

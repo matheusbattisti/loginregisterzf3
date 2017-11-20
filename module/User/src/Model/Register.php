@@ -27,6 +27,7 @@
 			$this->name = !empty($data['name']) ? $data['name'] : null;
 			$this->email = !empty($data['email']) ? $data['email'] : null;
 			$this->password = !empty($data['password']) ? $data['password'] : null;
+			$this->cpassword = !empty($data['confirmpassword']) ? $data['confirmpassword'] : null;
 		}
 
 		public function setInputFilter(InputFilterInterface $inputFilter)
@@ -93,6 +94,25 @@
 
 	        $inputFilter->add([
 	            'name' => 'password',
+	            'required' => true,
+	            'filters' => [
+	                ['name' => StripTags::class],
+	                ['name' => StringTrim::class],
+	            ],
+	            'validators' => [
+	                [
+	                    'name' => StringLength::class,
+	                    'options' => [
+	                        'encoding' => 'UTF-8',
+	                        'min' => 1,
+	                        'max' => 100,
+	                    ],
+	                ],
+	            ],
+	        ]);
+
+	        $inputFilter->add([
+	            'name' => 'confirmpassword',
 	            'required' => true,
 	            'filters' => [
 	                ['name' => StripTags::class],

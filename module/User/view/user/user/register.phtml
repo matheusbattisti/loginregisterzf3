@@ -21,6 +21,10 @@
 	$password->setAttribute('class', 'form-control');
 	$password->setAttribute('placeholder', 'Password');
 
+	$cpassword = $form->get('confirmpassword');
+	$cpassword->setAttribute('class', 'form-control');
+	$cpassword->setAttribute('placeholder', 'Confirm Password');
+
 	// This provides CSS classes for the submit button:
 	$submit = $form->get('submit');
 	$submit->setAttribute('class', 'btn btn-primary');
@@ -48,6 +52,12 @@
 	    <?= $this->formLabel($password) ?>
 	    <?= $this->formElement($password) ?>
 	    <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+	</div>
+
+	<div class="form-group">
+	    <?= $this->formLabel($cpassword) ?>
+	    <?= $this->formElement($cpassword) ?>
+	    <?= $this->formElementErrors()->render($cpassword, ['class' => 'help-block']) ?>
 	</div>
 
 	<?php

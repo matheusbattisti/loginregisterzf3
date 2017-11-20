@@ -25,7 +25,8 @@
 	                },
 	                Model\RegisterTable::class => function($container) {
 	                    $tableGateway = $container->get(Model\RegisterTableGateway::class);
-	                    return new Model\RegisterTable($tableGateway);
+	                    $dbAdapter =$container->get(AdapterInterface::class);
+	                    return new Model\RegisterTable($tableGateway, $dbAdapter);
 	                },
 	                Model\RegisterTableGateway::class => function ($container) {
 	                    $dbAdapter = $container->get(AdapterInterface::class);
