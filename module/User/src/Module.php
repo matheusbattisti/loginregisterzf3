@@ -21,7 +21,8 @@
 	        return [
 	            'factories' => [
 	                Model\Authenticator::class => function($container) {
-	                	return new Model\Authenticator($container->get(AdapterInterface::class));
+	                    $dbAdapter =$container->get(AdapterInterface::class);
+	                	return new Model\Authenticator($dbAdapter);
 	                },
 	                Model\RegisterTable::class => function($container) {
 	                    $tableGateway = $container->get(Model\RegisterTableGateway::class);

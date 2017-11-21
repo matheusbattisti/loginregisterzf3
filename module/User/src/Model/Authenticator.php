@@ -5,18 +5,22 @@
 	use RuntimeException;
 	use Zend\Db\Adapter\AdapterInterface;
 	use Zend\Authentication\AuthenticationService;
-	use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthAdapter;
+	use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter as AuthAdapter;
 	use Zend\Authentication\Storage\Session as SessionStorage;
 	use Zend\Session\SessionManager;
+	use Zend\Crypt\Password\Bcrypt;
 
 	class Authenticator
 	{
 
 		private $dbAdapter;
+		private $tableGateway;
 
 		public function __construct(AdapterInterface $dbAdapter)
 		{
 			$this->dbAdapter = $dbAdapter;
+			$this->tableGateway = new TableGateway('users', $this->dbAdapter);
+			$this->bcrypt = new Bcrypt();
 		}
 
 		public function authenticate(Login $login)
@@ -26,11 +30,16 @@
 
 			$sessionManager = new SessionManager();
 
+			$credentialValidationCallback = function($dbCredential, $requestCredential) {
+			    return $this->bcrypt->verify($requestCredential, $dbCredential);
+			};
+
 			$authAdapter = new AuthAdapter(
 				$this->dbAdapter, 
 				'users', 
 				'username', 
-				'password'
+				'password',
+				$credentialValidationCallback
 			);
 
 			$data = [
